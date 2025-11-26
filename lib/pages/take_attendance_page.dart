@@ -57,9 +57,9 @@ class _TakeAttendancePageState extends State<TakeAttendancePage> {
           setState(() {
             _errorMessage = response['error'];
           });
-        } else if (response.containsKey('recognized_faces')) {
-          final List<dynamic> faces = response['recognized_faces'];
-          final List<String> detectedNames = faces.map((face) => face['name'].toString()).toList();
+        } else if (response.containsKey('results') && response['results'] is List && response['results'].isNotEmpty) {
+          final List<dynamic> recognizedNamesData = response['results'][0]['recognized_names'];
+          final List<String> detectedNames = recognizedNamesData.map((name) => name.toString()).toList();
 
           setState(() {
             _recognizedStudentNames = detectedNames;
